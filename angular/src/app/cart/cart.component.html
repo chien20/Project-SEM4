@@ -1,0 +1,96 @@
+<div *ngIf="this.cartService.count == 0">
+    <div class="container">
+        <div class="row">
+         
+            <div class="box">
+                <div class="img">
+                        <img src="../../assets/images/cart.png" alt="">
+                    </div>
+                <p>Giỏ hàng chưa có sản phẩm nào</p>
+                    <button class="btn btn-success" routerLink="">
+                        Mua sản phẩm
+                    </button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="this.cartService.count != 0">
+    <div class="row">
+       <div class="col-md-12" style="padding:20px">
+        <div class="col-md-4">
+        <h2>Giỏ hàng của bạn({{cartItems.length}} sản phẩm)</h2>
+        </div>
+        <div class="col-md-4">
+                
+        </div>
+    </div>
+        <div class="col-md-8">
+            <div class="list-product-cart">
+               <div class="item-cart" *ngFor="let item of cartItems">
+                 <div class="row">
+                    <div class="col-md-2">
+                        <div class="box-image" style="width: 100%;">
+                            <img style="width: 100%;" [src]="item.imageString" alt="">
+                        </div>          
+                    </div>
+                    <div class="col-md-5">
+                        <div class="des">
+                            <p>{{item.name}}</p>
+                                  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="buttons_added">
+                            <!-- <input class="minus is-form" type="button" value="-" ()="remove(item)"> -->
+                            <input aria-label="quantity" class="input-qty" max="40" min="0" name="" type="number" [(ngModel)]="item.amount">
+                            <!-- <input class="plus is-form" type="button" value="+" (click)="add(item)"> -->
+                          </div>
+                    </div>
+                    <div class="col-md-3" style="text-align: right;">
+                        <div class="price">
+                            <span style="font-size: 16px;color:#0010b4; font-weight: bold;">{{ item?.price | currency : 'CLP':''}} đ</span>
+                            <p style="text-decoration: line-through;">{{item?.priceSale | currency : 'CLP':''}} đ</p>
+                            
+                        </div>
+                    </div>
+           
+                </div>
+                <span class="material-icons delete-item" (click)="deleteItem(item)">
+                    clear
+                    </span> 
+               </div>             
+            </div>
+        </div>
+        <div class="col-md-4">
+        <div class="thanh-toan">
+            <h2>Thanh toán</h2>
+            <table class="table">
+               
+                <tbody>
+                  <tr>
+                    <th scope="row">Tạm tính</th>
+                    <td>{{totalMoney() |currency : 'CLP':''}} đ</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Phí vận chuyển</th>
+                    <td>{{0 | currency : 'CLP':''}} đ</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Khuyến mại</th>
+                    <td>{{0 | currency : 'CLP':'' }} đ</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Thành tiền</th>
+                    <td style="color: rgb(235, 33, 1); font-weight: 700; text-align: right;font-size: 18px;">{{totalMoney() |currency: 'CLP' : ''}} đ</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="btn-thanh-toan_cart">
+                  <button class="btn btn-success">Thanh toán</button>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>
